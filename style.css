@@ -176,7 +176,7 @@ svg{ width:20px; height:20px; }
 .nav-links a:hover{ background:rgba(255,255,255,.4); }
 .nav-actions{ display:flex; align-items:center; gap:6px; }
 .nav-actions .btn-text{ color:var(--green-text); }
-.nav-burger{ display:none; flex-direction:column; gap:4px; background:none; border:none; padding:10px; }
+.nav-burger{ display:none; flex-direction:column; gap:4px; background:none; border:none; padding:10px; margin-left:auto; }
 .nav-burger span{ width:20px; height:2px; background:var(--green-text); border-radius:2px; }
 
 /* ==================== HERO ==================== */
@@ -828,8 +828,14 @@ svg{ width:20px; height:20px; }
 }
 @media (max-width: 759px){
   .scrolly{ height:auto; }
-  .scrolly-sticky{ position:static; height:auto; padding:70px 0; }
+  .scrolly-sticky{ position:static; height:auto; padding:70px 0; overflow:visible; }
   .scrolly-track{
+    /* Sin este width:100%, al estar dentro de un flex column con
+       align-items:center, la fila se agranda para entrar TODAS las fotos
+       de una y no queda nada para deslizar (se ve "trabada" en una sola
+       imagen). Con el ancho fijo al de la pantalla, el sobrante queda
+       adentro del propio track y ahí sí funciona el swipe con el dedo. */
+    width:100%;
     overflow-x:auto; scroll-snap-type:x mandatory; padding:0 24px 12px;
     -webkit-overflow-scrolling:touch;
   }
