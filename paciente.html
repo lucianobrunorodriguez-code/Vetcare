@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi portal · VetCare</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23D96C86' d='M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="portal-body portal-patient">
+
+<header class="nav-wrap">
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="brand">
+      <span class="brand-icon"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg></span>
+      VetCare
+    </a>
+    <div class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html#servicios">Servicios</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="portal-tag">Portal del paciente</span>
+        <button class="btn-text" id="logoutBtn">Cerrar sesión</button>
+      </div>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+  <!-- ================= PORTAL HERO ================= -->
+  <section class="portal-hero portal-hero-pink">
+    <div class="portal-hero-photo" id="patientHeroPhoto"></div>
+    <div class="portal-hero-scrim"></div>
+    <div class="container portal-hero-content">
+      <span class="eyebrow eyebrow-light">Portal del paciente</span>
+      <h1 id="patientGreeting">Hola de nuevo</h1>
+      <p>Este es el resumen de tu familia peluda: sus próximas citas, su historial y todo lo que necesitas para cuidarla.</p>
+      <button class="btn btn-pink btn-lg" data-open-booking>
+        + Reservar nueva cita
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <div class="container portal-content">
+    <div class="dash-stats portal-stats">
+      <div class="card dash-stat"><strong id="patientNextStat">—</strong><span>Próxima cita</span></div>
+      <div class="card dash-stat"><strong id="patientPetCount">0</strong><span>Mascotas registradas</span></div>
+      <div class="card dash-stat"><strong id="patientVisitCount">0</strong><span>Visitas totales</span></div>
+    </div>
+
+    <h2 class="portal-subtitle">Próximas citas y recordatorios</h2>
+    <div class="dash-list" id="patientUpcomingList"></div>
+
+    <h2 class="portal-subtitle">Mis mascotas</h2>
+    <div class="pets-grid" id="patientPetsList"></div>
+
+    <h2 class="portal-subtitle">Historial de citas</h2>
+    <div class="historial-list" id="patientHistoryList"></div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-bottom">
+    <p>© 2026 VetCare. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ================= PET DETAIL MODAL ================= -->
+<div class="overlay" id="petOverlay">
+  <div class="modal-card card ficha-modal" id="petModal">
+    <button class="modal-close" data-close="pet" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="tag tag-green">Ficha de mi mascota</span>
+    <div class="crm-preview-head" style="margin-top:14px">
+      <div class="pet-photo-wrap sm" id="petPhotoWrap"></div>
+      <div>
+        <p class="mini-title" id="petNombre">—</p>
+        <p class="mini-sub" id="petEspecieRaza">—</p>
+      </div>
+    </div>
+    <div class="mini-divider"></div>
+    <div class="form-row">
+      <div>
+        <p class="crm-preview-label">Edad</p>
+        <p class="crm-preview-value" id="petEdad">—</p>
+      </div>
+      <div>
+        <p class="crm-preview-label">Peso</p>
+        <p class="crm-preview-value" id="petPeso">—</p>
+      </div>
+    </div>
+    <p class="crm-preview-label">Alergias</p>
+    <p class="crm-preview-value" id="petAlergias">—</p>
+    <p class="crm-preview-label">Vacunas</p>
+    <div class="mini-list" id="petVacunas"></div>
+    <p class="crm-preview-label">Desparasitaciones</p>
+    <div class="mini-list" id="petDesparasitaciones"></div>
+    <p class="crm-preview-label">Historial clínico</p>
+    <div class="historial-list" id="petHistorial"></div>
+  </div>
+</div>
+
+<!-- ================= BOOKING OVERLAY ================= -->
+<div class="overlay" id="bookingOverlay">
+  <div class="dash-shell">
+    <button class="modal-close dash-close" data-close="booking" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="booking-steps-nav">
+      <span class="bstep active" data-step="1">1. Servicio</span>
+      <span class="bstep" data-step="2">2. Doctor</span>
+      <span class="bstep" data-step="3">3. Horario</span>
+      <span class="bstep" data-step="4">4. Ficha</span>
+      <span class="bstep" data-step="5">5. Listo</span>
+    </div>
+
+    <div class="booking-panel active" data-panel="1">
+      <h2>¿Qué servicio necesita tu mascota?</h2>
+      <div class="chip-grid" id="serviceChipGrid"></div>
+      <button class="btn btn-pink btn-lg" data-next="2" disabled id="toStep2">Continuar</button>
+    </div>
+
+    <div class="booking-panel" data-panel="2">
+      <h2>¿Con quién te gustaría atenderte?</h2>
+      <p class="booking-step-hint">Estos son los especialistas disponibles para el servicio que elegiste.</p>
+      <div class="chip-grid doctor-chip-grid" id="doctorChipGrid"></div>
+      <div class="hero-actions">
+        <button class="btn btn-outline-green" data-back="1">Atrás</button>
+        <button class="btn btn-pink btn-lg" data-next="3" disabled id="toStep3">Continuar</button>
+      </div>
+    </div>
+
+    <div class="booking-panel" data-panel="3">
+      <h2>Elige fecha y horario</h2>
+      <label class="date-label">Fecha
+        <input type="date" id="bookingDate">
+      </label>
+      <div class="chip-grid" id="timeChipGrid">
+        <button class="chip" data-time="9:00 AM">9:00 AM</button>
+        <button class="chip" data-time="11:00 AM">11:00 AM</button>
+        <button class="chip" data-time="1:00 PM">1:00 PM</button>
+        <button class="chip" data-time="3:30 PM">3:30 PM</button>
+        <button class="chip" data-time="5:00 PM">5:00 PM</button>
+        <button class="chip" data-time="6:30 PM">6:30 PM</button>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-outline-green" data-back="2">Atrás</button>
+        <button class="btn btn-pink btn-lg" data-next="4" disabled id="toStep4">Continuar</button>
+      </div>
+    </div>
+
+    <div class="booking-panel" data-panel="4">
+      <h2>Cuéntanos sobre tu mascota</h2>
+      <form class="crm-form" id="bookingForm" onsubmit="return false">
+        <label>Mascota
+          <select id="bkPetSelect"></select>
+        </label>
+        <label>Nombre de la mascota
+          <input type="text" id="bkNombre" placeholder="Ej. Luna">
+        </label>
+        <div class="form-row">
+          <label>Especie
+            <select id="bkEspecie">
+              <option value="Perro">Perro</option>
+              <option value="Gato">Gato</option>
+              <option value="Ave">Ave</option>
+              <option value="Hamster">Hámster</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
+          <label>Raza
+            <input type="text" id="bkRaza" placeholder="Ej. Mestizo">
+          </label>
+        </div>
+        <label>Motivo de consulta / síntomas
+          <textarea id="bkMotivo" rows="2" placeholder="¿Qué le está pasando?"></textarea>
+        </label>
+      </form>
+      <div class="hero-actions">
+        <button class="btn btn-outline-green" data-back="3">Atrás</button>
+        <button class="btn btn-pink btn-lg" id="confirmBooking">Confirmar cita</button>
+      </div>
+    </div>
+
+    <div class="booking-panel" data-panel="5">
+      <div class="confirm-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h2>¡Cita confirmada!</h2>
+      <p>Le enviamos los detalles a tu correo. Ya la puedes ver en tu portal, y tu doctor ya la tiene en su agenda.</p>
+      <div class="card booking-summary" id="bookingSummary"></div>
+      <button class="btn btn-pink btn-lg" id="backToPanel">Volver a mi portal</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="common.js"></script>
+<script src="paciente.js"></script>
+</body>
+</html>

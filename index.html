@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VetCare · Clínica veterinaria</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23D96C86' d='M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="nav-wrap">
+  <nav class="navbar" id="navbar">
+    <a href="#top" class="brand">
+      <span class="brand-icon"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg></span>
+      VetCare
+    </a>
+    <div class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn-text" data-auth="login">Iniciar sesión</button>
+        <button class="btn btn-pink btn-sm" data-auth="register">Crear cuenta</button>
+      </div>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-blob blob-green" data-speed="0.15"></div>
+    <div class="hero-blob blob-pink" data-speed="0.25"></div>
+    <div class="hero-blob blob-green-2" data-speed="0.1"></div>
+
+    <div class="hero-inner container">
+      <div class="hero-copy reveal" style="--delay:0s">
+        <span class="pill-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.3-9.5-8.8C.8 7.7 2.5 4 6 4c2 0 3.4 1.1 4 2 .6-.9 2-2 4-2 3.5 0 5.2 3.7 3.5 7.2C19 15.7 12 21 12 21z"/></svg>
+          Cuidamos a tu mascota desde 2015
+        </span>
+        <h1>Bienvenido a VetCare, tu clínica de <span class="text-pink">confianza</span></h1>
+        <p class="hero-sub">Somos una clínica veterinaria de barrio con equipo propio, doctores especializados y mucho cariño por cada paciente que entra por la puerta. Agenda la cita de tu mascota en minutos.</p>
+        <div class="hero-actions">
+          <button class="btn btn-pink btn-lg" data-auth="register" data-role="paciente">
+            Reservar una cita
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <button class="btn btn-outline-green btn-lg" data-auth="register" data-role="doctor">Portal del equipo médico</button>
+        </div>
+        <div class="hero-stats">
+          <div><strong>+8</strong><span>años de trayectoria</span></div>
+          <div><strong>+500</strong><span>familias nos confían a sus mascotas</span></div>
+          <div><strong>24/7</strong><span>línea de emergencias</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" style="--delay:.15s">
+        <div class="stack-card card-main">
+          <div class="mini-nav">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <div class="mini-row">
+            <!-- Foto: fotos/mascotas/puddle.jpg (la foto de Pujol) -->
+            <div class="pet-photo-wrap sm"><img src="fotos/mascotas/puddle.jpg" alt="Pujol" class="pet-photo" loading="lazy" onerror="this.remove()"></div>
+            <div>
+              <p class="mini-title">Pujol</p>
+              <p class="mini-sub">Puddle · 3 años</p>
+            </div>
+            <span class="tag tag-green">Confirmada</span>
+          </div>
+          <div class="mini-divider"></div>
+          <div class="mini-info">
+            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Hoy, 4:30 PM</div>
+            <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v4a2.5 2.5 0 0 0 5 0V3"/><path d="M9 10v2.5a4.5 4.5 0 0 0 9 0V10"/><circle cx="18" cy="9" r="2"/></svg> Consulta general · Dr. Cesar Vega</div>
+          </div>
+        </div>
+
+        <div class="stack-card card-float-1">
+          <div class="icon-circle green sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.5-9.1C.8 8.4 2.4 5 6 5c2 0 3.4 1.1 4 2 .6-.9 2-2 4-2 3.6 0 5.2 3.4 3.5 6.9C19 16.4 12 21 12 21z"/></svg>
+          </div>
+          <div>
+            <p class="mini-title">98%</p>
+            <p class="mini-sub-xs">tasa de satisfacción</p>
+          </div>
+        </div>
+
+        <div class="stack-card card-float-2">
+          <div>
+            <p class="mini-sub-xs">Próximo turno libre</p>
+            <p class="mini-title">Mañana · 9:00 AM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCROLLY SHOWCASE ================= -->
+  <section class="scrolly" id="scrollySection">
+    <div class="scrolly-sticky">
+      <div class="scrolly-header reveal">
+        <span class="eyebrow">Servicios destacados</span>
+        <h2>Desliza para conocerlos</h2>
+        <span class="scrolly-counter" id="scrollyCounter">1 / 5</span>
+      </div>
+      <div class="scrolly-track" id="scrollyTrack"></div>
+      <div class="scrolly-dots" id="scrollyDots"></div>
+      <p class="scrolly-hint">Sigue bajando ↓</p>
+    </div>
+  </section>
+
+  <!-- ================= SOBRE VETCARE ================= -->
+  <section class="section about-section">
+    <div class="container about-grid">
+      <div class="about-photo-wrap reveal">
+        <!-- Foto: fotos/servicios/sobre vetcare.jpg -->
+        <div class="about-photo" style="background-image:url('fotos/servicios/sobre vetcare.jpg')"></div>
+        <div class="about-floating-card">
+          <div class="icon-circle pink sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.3-9.5-8.8C.8 7.7 2.5 4 6 4c2 0 3.4 1.1 4 2 .6-.9 2-2 4-2 3.5 0 5.2 3.7 3.5 7.2C19 15.7 12 21 12 21z"/></svg></div>
+          <div>
+            <p class="mini-title">+500</p>
+            <p class="mini-sub-xs">mascotas felices</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-copy reveal" style="--delay:.1s">
+        <span class="eyebrow">Sobre VetCare</span>
+        <h2>Más que una clínica, una segunda familia para tu mascota</h2>
+        <p>Desde 2015 atendemos a las mascotas de nuestro barrio con instalaciones propias, equipo de diagnóstico moderno y un equipo médico que realmente ama lo que hace. Nada de salas de espera eternas ni papeleo perdido: cada mascota tiene su ficha digital siempre a mano.</p>
+        <div class="about-chips">
+          <div class="about-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Instalaciones propias</div>
+          <div class="about-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Doctores especializados</div>
+          <div class="about-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Ficha digital de tu mascota</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICIOS ================= -->
+  <section id="servicios" class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Servicios</span>
+        <h2>Cuidado médico y estético para cada etapa de su vida</h2>
+        <p>Un catálogo completo, atendido por especialistas, con la ficha de tu mascota siempre actualizada.</p>
+      </div>
+
+      <div class="filter-chips reveal">
+        <button class="chip filter-chip selected" data-filter="todos">Todos</button>
+        <button class="chip filter-chip" data-filter="medico">Médico</button>
+        <button class="chip filter-chip" data-filter="estetico">Estético</button>
+      </div>
+
+      <div class="grid-services" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= COMO FUNCIONA ================= -->
+  <section id="como-funciona" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2>Tres pasos y listo</h2>
+        <p>Reservar la cita de tu mascota con nosotros toma menos de dos minutos.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal" style="--delay:0s">
+          <span class="step-num">1</span>
+          <h3>Crea tu cuenta</h3>
+          <p>Regístrate como dueño de mascota o, si eres parte del equipo, entra por el portal médico.</p>
+        </div>
+        <div class="step reveal" style="--delay:.1s">
+          <span class="step-num">2</span>
+          <h3>Elige servicio y horario</h3>
+          <p>Explora el catálogo, elige especialista, fecha y hora desde tu portal.</p>
+        </div>
+        <div class="step reveal" style="--delay:.2s">
+          <span class="step-num">3</span>
+          <h3>Recibe atención</h3>
+          <p>Llega a la clínica: tu doctor ya tiene la ficha completa de tu mascota lista.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EQUIPO ================= -->
+  <section id="equipo" class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Nuestro equipo</span>
+        <h2>Especialistas que conocen a tu mascota por su nombre</h2>
+        <p>Cada doctor tiene su propia especialidad para darle a tu mascota la atención justa que necesita.</p>
+      </div>
+      <div class="team-grid" id="teamGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= PORTALES ================= -->
+  <section id="roles" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Portales</span>
+        <h2>Accede a tu portal VetCare</h2>
+        <p>Un espacio propio para cada quien: dueños de mascota y equipo médico.</p>
+      </div>
+
+      <div class="roles-grid">
+        <div class="role-card card reveal" style="--delay:0s">
+          <div class="icon-circle green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v4a2.5 2.5 0 0 0 5 0V3"/><path d="M9 10v2.5a4.5 4.5 0 0 0 9 0V10"/><circle cx="18" cy="9" r="2"/></svg></div>
+          <h3>Portal del equipo médico</h3>
+          <p>Su propia página: agenda del día, historial clínico completo de cada paciente y su especialidad siempre visible.</p>
+          <div class="role-mock">
+            <div class="role-mock-row"><span class="dot-status green"></span> Pujol · 4:30 PM</div>
+            <div class="role-mock-row"><span class="dot-status pink"></span> Michigan · 5:00 PM</div>
+            <div class="role-mock-row"><span class="dot-status green"></span> Tinny · 5:30 PM</div>
+          </div>
+          <button class="btn btn-outline-green" data-auth="register" data-role="doctor">Entrar al portal médico</button>
+        </div>
+
+        <div class="role-card card reveal" style="--delay:.15s">
+          <div class="icon-circle pink"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg></div>
+          <h3>Portal del paciente</h3>
+          <p>Su propia página: tus mascotas, sus recordatorios de citas y su historial, todo a un clic.</p>
+          <div class="role-mock">
+            <div class="role-mock-row"><span class="dot-status pink"></span> Próxima cita en 0 días</div>
+            <div class="role-mock-row"><span class="dot-status green"></span> 2 mascotas registradas</div>
+            <div class="role-mock-row"><span class="dot-status pink"></span> Historial siempre disponible</div>
+          </div>
+          <button class="btn btn-pink" data-auth="register" data-role="paciente">Entrar a mi portal</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CRM DEMO ================= -->
+  <section class="section section-alt">
+    <div class="container crm-demo">
+      <div class="crm-copy reveal">
+        <span class="eyebrow">Ficha digital</span>
+        <h2>Así queda la ficha de tu mascota en nuestro sistema</h2>
+        <p>Antes de la cita, completas los datos de tu mascota. El doctor entra al consultorio ya sabiendo qué está pasando. Prueba escribir a la derecha →</p>
+      </div>
+
+      <div class="crm-form-wrap reveal" style="--delay:.1s">
+        <form class="card crm-form" id="crmForm" onsubmit="return false">
+          <label>Nombre de la mascota
+            <input type="text" id="crmNombre" placeholder="Ej. Luna" maxlength="24">
+          </label>
+          <div class="form-row">
+            <label>Especie
+              <select id="crmEspecie">
+                <option value="Perro">Perro</option>
+                <option value="Gato">Gato</option>
+                <option value="Ave">Ave</option>
+                <option value="Hamster">Hámster</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+            <label>Edad
+              <input type="text" id="crmEdad" placeholder="Ej. 2 años" maxlength="12">
+            </label>
+          </div>
+          <label>Raza
+            <input type="text" id="crmRaza" placeholder="Ej. Mestizo" maxlength="24">
+          </label>
+          <label>Motivo de consulta
+            <textarea id="crmMotivo" rows="2" placeholder="Describe brevemente qué le pasa..." maxlength="140"></textarea>
+          </label>
+        </form>
+
+        <div class="card crm-preview">
+          <span class="tag tag-pink">Vista previa del doctor</span>
+          <div class="crm-preview-head">
+            <div class="icon-circle pink sm"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg></div>
+            <div>
+              <p class="mini-title" id="previewNombre">Nombre de la mascota</p>
+              <p class="mini-sub" id="previewEspecieRaza">Especie · Raza</p>
+            </div>
+          </div>
+          <div class="mini-divider"></div>
+          <p class="crm-preview-label">Edad</p>
+          <p class="crm-preview-value" id="previewEdad">—</p>
+          <p class="crm-preview-label">Motivo de consulta</p>
+          <p class="crm-preview-value" id="previewMotivo">Aún no hay información. Completa el formulario para ver la ficha aquí.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIOS ================= -->
+  <section id="testimonios" class="section section-green">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Testimonios</span>
+        <h2>Lo que dicen las familias que ya nos visitan</h2>
+      </div>
+
+      <div class="testimonial-grid">
+        <blockquote class="card testimonial-card reveal" style="--delay:0s">
+          <!-- Foto: fotos/mascotas/taly gato.jpeg -->
+          <div class="testimonial-avatar"><img src="fotos/mascotas/taly gato.jpeg" alt="Michigan" loading="lazy" onerror="this.remove()"></div>
+          <p>"Llevamos a Michigan desde pequeña a esta clínica. Siempre nos avisan con tiempo de sus vacunas y el Dr. Aramayo la conoce de memoria."</p>
+          <footer><strong>Natalia Montaño</strong><span>Dueña de Michigan</span></footer>
+        </blockquote>
+        <blockquote class="card testimonial-card reveal" style="--delay:.1s">
+          <!-- Foto: fotos/mascotas/tinny.jpeg -->
+          <div class="testimonial-avatar"><img src="fotos/mascotas/tinny.jpeg" alt="Tinny" loading="lazy" onerror="this.remove()"></div>
+          <p>"Reservar la cita de Tinny me tomó dos minutos desde el celular, y en el portal veo todo su historial, hasta el de su cirugía."</p>
+          <footer><strong>Luciano Rodriguez</strong><span>Dueño de Tinny</span></footer>
+        </blockquote>
+        <blockquote class="card testimonial-card reveal" style="--delay:.2s">
+          <!-- Foto: fotos/mascotas/aaron.jpeg -->
+          <div class="testimonial-avatar"><img src="fotos/mascotas/aaron.jpeg" alt="Lizzie" loading="lazy" onerror="this.remove()"></div>
+          <p>"Lizzie empezó a cojear y en un día ya teníamos el laboratorio hecho y un diagnóstico claro. La Dra. Claudia fue clarísima explicándonos todo."</p>
+          <footer><strong>Aaron Aramayo</strong><span>Dueño de Lizzie</span></footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA FINAL ================= -->
+  <section class="cta-final reveal">
+    <div class="container cta-final-inner">
+      <h2>Tu mascota merece el mejor cuidado</h2>
+      <p>Reserva su próxima cita hoy mismo o conoce al equipo que la va a atender.</p>
+      <div class="hero-actions center">
+        <button class="btn btn-pink btn-lg" data-auth="register" data-role="paciente">Reservar una cita</button>
+        <button class="btn btn-outline-green btn-lg on-green" data-auth="register" data-role="doctor">Portal del equipo médico</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#top" class="brand">
+        <span class="brand-icon"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg></span>
+        VetCare
+      </a>
+      <p>Agendas ordenadas, dueños tranquilos, mascotas felices.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14 8.5h-1.3A1.7 1.7 0 0 0 11 10.2V12h3l-.4 2.5H11V19"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.1-4A8 8 0 1 1 8 19L4 20z"/><path d="M8.5 10c0 3 2.5 5.5 5.5 5.5"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Clínica</h4>
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#como-funciona">Cómo funciona</a>
+    </div>
+    <div class="footer-col">
+      <h4>Comunidad</h4>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#roles">Portales</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <p class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v3a1 1 0 0 1-1 1C10.6 19 4 12.4 4 5a1 1 0 0 1 1-1z"/></svg> +54 11 4555-0123</p>
+      <p class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg> Av. Las Heras 1234</p>
+      <p class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Lun-Sáb 8-20h · Urgencias 24/7</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 VetCare. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ================= AUTH MODAL ================= -->
+<div class="overlay" id="authOverlay">
+  <div class="modal-card card" id="authModal">
+    <button class="modal-close" data-close="auth" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Iniciar sesión</button>
+      <button class="auth-tab" data-tab="register">Crear cuenta</button>
+    </div>
+
+    <div class="role-toggle">
+      <button class="role-toggle-btn active" data-role-choice="paciente">
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg>
+        Dueño de mascota
+      </button>
+      <button class="role-toggle-btn" data-role-choice="doctor">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v4a2.5 2.5 0 0 0 5 0V3"/><path d="M9 10v2.5a4.5 4.5 0 0 0 9 0V10"/><circle cx="18" cy="9" r="2"/></svg>
+        Equipo médico
+      </button>
+    </div>
+
+    <p class="auth-hint" id="authUserHint"></p>
+
+    <form id="authForm" onsubmit="return false">
+      <label>Nombre <span class="only-register">completo</span><span class="only-login">(con este entrás)</span>
+        <input type="text" id="authNombre" placeholder="Ej. Luciano">
+      </label>
+      <label>Correo electrónico
+        <input type="email" id="authEmail" placeholder="tucorreo@ejemplo.com">
+      </label>
+      <label>Contraseña
+        <input type="password" id="authPassword" placeholder="••••••••">
+      </label>
+      <label class="only-register only-doctor">Especialidad
+        <select id="authEspecialidad">
+          <option value="Medicina general y preventiva">Medicina general y preventiva</option>
+          <option value="Cirugía general">Cirugía general</option>
+          <option value="Medicina interna y diagnóstico">Medicina interna y diagnóstico</option>
+          <option value="Estética y grooming">Estética y grooming</option>
+          <option value="Odontología veterinaria">Odontología veterinaria</option>
+        </select>
+      </label>
+      <button type="submit" class="btn btn-pink btn-lg full-width" id="authSubmit">Crear cuenta</button>
+    </form>
+    <p class="auth-switch">
+      <span class="only-login">¿No tienes cuenta? <a href="#" data-tab-link="register">Regístrate</a></span>
+      <span class="only-register">¿Ya tienes cuenta? <a href="#" data-tab-link="login">Inicia sesión</a></span>
+    </p>
+  </div>
+</div>
+
+<!-- ================= CHATBOT ================= -->
+<button class="chat-toggle" id="chatToggle" aria-label="Abrir chat">
+  <svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.2-.6L3 21l1.8-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+  <svg class="icon-close-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  <span class="chat-dot"></span>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="icon-circle green sm"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg></div>
+    <div>
+      <p class="mini-title">Asistente VetCare</p>
+      <p class="mini-sub-xs"><span class="online-dot"></span> En línea</p>
+    </div>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="chat-msg bot">¡Hola! Soy el asistente de VetCare. ¿En qué te puedo ayudar hoy?</div>
+    <div class="chip-grid chat-chips">
+      <button class="chip chip-sm" data-faq="horarios">Horarios</button>
+      <button class="chip chip-sm" data-faq="vacunas">Vacunas</button>
+      <button class="chip chip-sm" data-faq="precios">Precios</button>
+      <button class="chip chip-sm" data-faq="ubicacion">Ubicación</button>
+      <button class="chip chip-sm" data-faq="emergencias">Emergencias</button>
+      <button class="chip chip-sm" data-faq="reservar">Cómo reservar</button>
+      <button class="chip chip-sm" data-faq="mascotas">Qué mascotas atienden</button>
+      <button class="chip chip-sm" data-faq="pagos">Métodos de pago</button>
+      <button class="chip chip-sm" data-faq="primeraVisita">Primera visita</button>
+      <button class="chip chip-sm" data-faq="humano">Hablar con alguien</button>
+    </div>
+  </div>
+  <form class="chat-input-row" id="chatForm" onsubmit="return false">
+    <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+    <button type="submit" aria-label="Enviar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="common.js"></script>
+<script src="home.js"></script>
+</body>
+</html>

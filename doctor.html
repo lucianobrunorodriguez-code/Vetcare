@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal médico · VetCare</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23D96C86' d='M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="portal-body portal-doctor">
+
+<header class="nav-wrap">
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="brand">
+      <span class="brand-icon"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M9 22.5A7 5.3 0 1 0 23 22.5A7 5.3 0 1 0 9 22.5ZM3.5 14A3 3.6 0 1 0 9.5 14A3 3.6 0 1 0 3.5 14ZM9.6 7.3A3.1 3.9 0 1 0 15.8 7.3A3.1 3.9 0 1 0 9.6 7.3ZM16.4 7.3A3.1 3.9 0 1 0 22.6 7.3A3.1 3.9 0 1 0 16.4 7.3ZM22.5 14A3 3.6 0 1 0 28.5 14A3 3.6 0 1 0 22.5 14Z"/></svg></span>
+      VetCare
+    </a>
+    <div class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html#equipo">Equipo</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="portal-tag portal-tag-green">Portal médico</span>
+        <button class="btn-text" id="logoutBtn">Cerrar sesión</button>
+      </div>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+  <!-- ================= PORTAL HERO ================= -->
+  <section class="portal-hero portal-hero-green">
+    <div class="portal-hero-photo" id="doctorHeroPhoto"></div>
+    <div class="portal-hero-scrim"></div>
+    <div class="container portal-hero-content">
+      <div class="portal-hero-doctor">
+        <div class="doctor-avatar-wrap" id="doctorAvatarWrap"></div>
+        <div>
+          <span class="eyebrow eyebrow-light">Portal del equipo médico</span>
+          <h1 id="doctorGreeting">Doctor/a</h1>
+          <p class="doctor-specialty-tag" id="doctorSpecialty">Medicina general y preventiva</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container portal-content">
+    <div class="dash-stats portal-stats">
+      <div class="card dash-stat"><strong id="agendaCount">0</strong><span>Citas asignadas</span></div>
+      <div class="card dash-stat"><strong id="agendaTotalPets">0</strong><span>Mascotas en el sistema</span></div>
+      <div class="card dash-stat"><strong id="agendaNext">—</strong><span>Próxima cita</span></div>
+    </div>
+
+    <h2 class="portal-subtitle">Mi agenda</h2>
+    <div class="dash-list" id="doctorPatientList"></div>
+
+    <!-- Esta sección completa solo se muestra si el doctor logueado atiende
+         Hospitalización (ver doctor.js) — para el resto del equipo queda oculta. -->
+    <div id="internacionSection" class="internacion-section" hidden>
+      <div class="portal-subtitle-row">
+        <h2 class="portal-subtitle">Pacientes internados</h2>
+        <button type="button" class="btn btn-pink btn-sm" id="openInternarBtn">+ Internar paciente</button>
+      </div>
+      <div class="dash-list" id="internadosList"></div>
+
+      <h3 class="dash-subtitle-sm">Altas recientes</h3>
+      <div class="dash-list" id="altasList"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-bottom">
+    <p>© 2026 VetCare. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ================= FICHA MODAL ================= -->
+<div class="overlay" id="fichaOverlay">
+  <div class="modal-card card ficha-modal" id="fichaModal">
+    <button class="modal-close" data-close="ficha" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="tag tag-pink">Ficha del paciente</span>
+    <div class="crm-preview-head" style="margin-top:14px">
+      <div class="pet-photo-wrap sm" id="fichaPhotoWrap"></div>
+      <div>
+        <p class="mini-title" id="fichaNombre">—</p>
+        <p class="mini-sub" id="fichaEspecieRaza">—</p>
+      </div>
+    </div>
+    <div class="mini-divider"></div>
+    <p class="crm-preview-label">Dueño</p>
+    <p class="crm-preview-value" id="fichaDueno">—</p>
+    <div class="form-row">
+      <div>
+        <p class="crm-preview-label">Hora de hoy</p>
+        <p class="crm-preview-value" id="fichaHora">—</p>
+      </div>
+      <div>
+        <p class="crm-preview-label">Especialidad</p>
+        <p class="crm-preview-value" id="fichaEspecialidad">—</p>
+      </div>
+    </div>
+    <p class="crm-preview-label">Motivo de hoy</p>
+    <p class="crm-preview-value" id="fichaMotivo">—</p>
+
+    <div class="mini-divider"></div>
+    <p class="ficha-section-title">Editar datos de la mascota</p>
+    <form class="crm-form" onsubmit="return false">
+      <div class="form-row">
+        <label>Raza
+          <input type="text" id="editRaza" placeholder="Ej. Mestizo">
+        </label>
+        <label>Edad
+          <input type="text" id="editEdad" placeholder="Ej. 3 años">
+        </label>
+      </div>
+      <div class="form-row">
+        <label>Peso
+          <input type="text" id="editPeso" placeholder="Ej. 8.5 kg">
+        </label>
+        <label>Alergias
+          <input type="text" id="editAlergias" placeholder="Ej. Ninguna conocida">
+        </label>
+      </div>
+      <button type="button" class="btn btn-outline-green" id="saveDatosBtn">Guardar cambios</button>
+    </form>
+
+    <div class="mini-divider"></div>
+    <p class="ficha-section-title">Vacunas</p>
+    <div class="mini-list" id="fichaVacunas"></div>
+    <div class="mini-add-row">
+      <input type="text" id="nuevaVacunaNombre" placeholder="Ej. Antirrábica">
+      <button type="button" class="btn btn-pink btn-sm" id="addVacunaBtn">+ Agregar</button>
+    </div>
+
+    <p class="ficha-section-title">Desparasitaciones</p>
+    <div class="mini-list" id="fichaDesparasitaciones"></div>
+    <div class="mini-add-row">
+      <input type="text" id="nuevaDesparasitacionTipo" placeholder="Ej. Interna y externa">
+      <button type="button" class="btn btn-pink btn-sm" id="addDesparasitacionBtn">+ Agregar</button>
+    </div>
+
+    <div class="mini-divider"></div>
+    <p class="ficha-section-title">Historial clínico</p>
+    <div class="historial-list" id="fichaHistorial"></div>
+    <div class="add-diagnostico">
+      <label>Título del diagnóstico
+        <input type="text" id="nuevoDiagnosticoTitulo" placeholder="Ej. Control de peso">
+      </label>
+      <label>Nota
+        <textarea id="nuevoDiagnosticoNota" rows="2" placeholder="Describe el diagnóstico o la atención brindada..."></textarea>
+      </label>
+      <button type="button" class="btn btn-pink" id="addDiagnosticoBtn">+ Agregar diagnóstico</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= INTERNAR PACIENTE ================= -->
+<div class="overlay" id="internarOverlay">
+  <div class="modal-card card" id="internarModal">
+    <button class="modal-close" data-close="internar" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="tag tag-green">Nuevo ingreso</span>
+    <h2 class="modal-title">Internar paciente</h2>
+    <form class="crm-form" id="internarForm" onsubmit="return false">
+      <label>Mascota
+        <select id="internarPetSelect"></select>
+      </label>
+      <div id="internarNuevaMascota" hidden>
+        <label>Nombre de la mascota
+          <input type="text" id="internarNuevoNombre" placeholder="Ej. Luna">
+        </label>
+        <div class="form-row">
+          <label>Especie
+            <select id="internarNuevaEspecie">
+              <option value="Perro">Perro</option>
+              <option value="Gato">Gato</option>
+              <option value="Ave">Ave</option>
+              <option value="Hamster">Hámster</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
+          <label>Raza
+            <input type="text" id="internarNuevaRaza" placeholder="Ej. Mestizo">
+          </label>
+        </div>
+      </div>
+      <label>Motivo de internación
+        <input type="text" id="internarMotivo" placeholder="Ej. Esterilización, descompensación...">
+      </label>
+      <button type="button" class="btn btn-pink btn-lg full-width" id="confirmInternarBtn">Registrar ingreso</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= FICHA DE INTERNACIÓN ================= -->
+<div class="overlay" id="internacionFichaOverlay">
+  <div class="modal-card card ficha-modal" id="internacionFichaModal">
+    <button class="modal-close" data-close="internacionFicha" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="tag tag-pink" id="internacionEstadoTag">Internado/a</span>
+    <div class="crm-preview-head" style="margin-top:14px">
+      <div class="pet-photo-wrap sm" id="internacionPhotoWrap"></div>
+      <div>
+        <p class="mini-title" id="internacionNombre">—</p>
+        <p class="mini-sub" id="internacionEspecieRaza">—</p>
+      </div>
+    </div>
+    <div class="mini-divider"></div>
+    <div class="form-row">
+      <div>
+        <p class="crm-preview-label">Ingreso</p>
+        <p class="crm-preview-value" id="internacionIngreso">—</p>
+      </div>
+      <div>
+        <p class="crm-preview-label">Salida</p>
+        <p class="crm-preview-value" id="internacionSalida">Sigue internado/a</p>
+      </div>
+    </div>
+    <p class="crm-preview-label">Motivo</p>
+    <p class="crm-preview-value" id="internacionMotivo">—</p>
+
+    <div class="mini-divider"></div>
+    <p class="ficha-section-title">Medicamentos</p>
+    <div class="historial-list" id="internacionMedicamentos"></div>
+    <div class="add-medicamento" id="addMedicamentoRow">
+      <div class="form-row">
+        <label>Medicamento
+          <input type="text" id="nuevoMedNombre" placeholder="Ej. Amoxicilina 250mg">
+        </label>
+        <label>Frecuencia
+          <select id="nuevoMedFrecuencia">
+            <option>Cada 4 horas</option>
+            <option>Cada 6 horas</option>
+            <option>Cada 8 horas</option>
+            <option>Cada 12 horas</option>
+            <option>Cada 24 horas</option>
+            <option>Según necesidad</option>
+          </select>
+        </label>
+      </div>
+      <button type="button" class="btn btn-pink btn-sm" id="addMedicamentoBtn">+ Agregar medicamento</button>
+    </div>
+
+    <div class="mini-divider"></div>
+    <button type="button" class="btn btn-outline-green full-width" id="darDeAltaBtn">Dar de alta</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="common.js"></script>
+<script src="doctor.js"></script>
+</body>
+</html>
