@@ -185,16 +185,34 @@ function initBooking() {
     $('#toStep3').disabled = false;
   });
 
-  // Paso 3: fecha y hora
+  // Paso 3: fecha y hora. Antes de dejar elegir un horario, se revisa contra
+  // las citas ya guardadas si ese mismo doctor ya está ocupado ese día a esa
+  // hora (ver horarioOcupado en common.js) — así dos pacientes no terminan
+  // reservando el mismo turno con el mismo doctor.
   timeGrid.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
+    if (!dateInput.value) { showToast('Elegí primero una fecha.'); return; }
+    if (horarioOcupado(bookingState.doctorName, formatDate(dateInput.value), chip.dataset.time)) {
+      showToast('Ese horario ya está reservado con este doctor. Elegí otro.');
+      return;
+    }
     $$('.chip', timeGrid).forEach(c => c.classList.remove('selected'));
     chip.classList.add('selected');
     bookingState.time = chip.dataset.time;
     checkStep3Ready();
   });
-  dateInput.addEventListener('change', () => { bookingState.date = dateInput.value; checkStep3Ready(); });
+  // Si ya había un horario elegido y el paciente cambia de fecha, hay que
+  // revalidar: puede que ese mismo horario ya esté ocupado en la fecha nueva.
+  dateInput.addEventListener('change', () => {
+    bookingState.date = dateInput.value;
+    if (bookingState.time && horarioOcupado(bookingState.doctorName, formatDate(bookingState.date), bookingState.time)) {
+      showToast('Ese horario ya está ocupado en la nueva fecha. Elegí otro.');
+      bookingState.time = null;
+      $$('.chip', timeGrid).forEach(c => c.classList.remove('selected'));
+    }
+    checkStep3Ready();
+  });
   function checkStep3Ready() { $('#toStep4').disabled = !(bookingState.date && bookingState.time); }
 
   // Paso 4: si el select apunta a una mascota que ya tenías registrada, se
@@ -227,6 +245,13 @@ function initBooking() {
   // agrega la cita, y listo — esto ya es visible para el doctor elegido si
   // abre su propia pestaña.
   $('#confirmBooking').addEventListener('click', () => {
+    // Última verificación antes de guardar: por si el horario se ocupó
+    // mientras el paciente completaba los pasos 4 y 5 del asistente.
+    if (horarioOcupado(bookingState.doctorName, formatDate(bookingState.date), bookingState.time)) {
+      showToast('Justo se ocupó ese horario. Volvé al paso 3 y elegí otro.');
+      goToBookingStep('3');
+      return;
+    }
     const nombre = $('#bkNombre').value.trim() || 'Tu mascota';
     const especie = $('#bkEspecie').value;
     const raza = $('#bkRaza').value.trim() || 'Sin especificar';

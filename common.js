@@ -360,6 +360,17 @@ function citasByDoctor(doctorName) {
   return allCitas().filter(c => normalizeDoctorName(c.doctor) === clean);
 }
 
+// Dice si un doctor ya tiene una cita confirmada en esa fecha y hora exactas
+// (fecha en formato "dd/mm/aaaa", igual que se guarda en cada cita) — con
+// esto el asistente de reserva evita que dos pacientes se crucen con el
+// mismo doctor al mismo horario.
+function horarioOcupado(doctorName, fecha, hora) {
+  const clean = normalizeDoctorName(doctorName);
+  return allCitas().some(c =>
+    normalizeDoctorName(c.doctor) === clean && c.fecha === fecha && c.hora === hora && c.estado !== 'Cancelada'
+  );
+}
+
 // Carga los datos de ejemplo la PRIMERA vez que se abre el sitio en este
 // navegador (si ya existen, no hace nada — así no se pisan los cambios que
 // ya hizo el doctor o las citas que ya reservó el paciente). Se llama una
