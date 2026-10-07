@@ -211,8 +211,19 @@ function initBooking() {
       bookingState.time = null;
       $$('.chip', timeGrid).forEach(c => c.classList.remove('selected'));
     }
+    refreshTimeChips();
     checkStep3Ready();
   });
+  // Marca visualmente (tachado + "Ocupado") los horarios que el doctor elegido
+  // ya tiene reservados en la fecha elegida.
+  function refreshTimeChips() {
+    $$('.chip', timeGrid).forEach(c => {
+      const ocupado = !!(dateInput.value && bookingState.doctorName &&
+        horarioOcupado(bookingState.doctorName, formatDate(dateInput.value), c.dataset.time));
+      c.classList.toggle('ocupado', ocupado);
+      c.title = ocupado ? 'Ocupado' : '';
+    });
+  }
   function checkStep3Ready() { $('#toStep4').disabled = !(bookingState.date && bookingState.time); }
 
   // Paso 4: si el select apunta a una mascota que ya tenías registrada, se
@@ -237,6 +248,7 @@ function initBooking() {
   $$('[data-next]').forEach(btn => btn.addEventListener('click', () => {
     if (btn.disabled) return;
     if (btn.dataset.next === '2') renderDoctorChips();
+    if (btn.dataset.next === '3') refreshTimeChips();
     goToBookingStep(btn.dataset.next);
   }));
   $$('[data-back]').forEach(btn => btn.addEventListener('click', () => goToBookingStep(btn.dataset.back)));

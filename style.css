@@ -137,6 +137,8 @@ svg{ width:20px; height:20px; }
 }
 .chip:hover{ border-color:var(--pink-100); transform:translateY(-2px); }
 .chip.selected{ background:var(--pink-600); border-color:var(--pink-600); color:#fff; box-shadow:var(--shadow-pink); }
+.chip.ocupado{ background:var(--bg); color:var(--ink-faint); text-decoration:line-through; border-style:dashed; opacity:.7; }
+.chip.ocupado::after{ content:' · Ocupado'; font-size:.75em; text-decoration:none; display:inline-block; }
 .chip-sm{ padding:8px 14px; font-size:.85rem; }
 
 /* ==================== NAVBAR ==================== */
