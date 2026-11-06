@@ -1,20 +1,9 @@
-// ============================================================================
-// paciente.js
-// Lógica exclusiva de paciente.html: el portal del dueño de mascota.
-// Las mascotas y citas YA NO se guardan solo en esta pestaña: viven en el
-// almacén compartido de common.js (localStorage), filtradas por "ownerKey"
-// (quién sos). Por eso el doctor puede ver, en su propia pestaña, una cita
-// que reservaste acá.
-// ============================================================================
-
 const session = Session.get() || { role: 'paciente', name: 'Invitado', email: '', specialty: '' };
 const ownerKey = ownerKeyFromSession(session);
 
 function misMascotas() { return mascotasByOwner(ownerKey); }
 function misCitas() { return citasByOwner(ownerKey); }
 
-// Dibuja todo el contenido del portal: saludo, foto del banner, próximas
-// citas, tarjetas de mascotas (con sus datos clínicos) e historial completo.
 function renderPatientPage() {
   $('#patientGreeting').textContent = `Hola, ${session.name}`;
 
@@ -22,7 +11,6 @@ function renderPatientPage() {
   const heroPet = pets[0];
   $('#patientHeroPhoto').style.backgroundImage = bgFoto(heroPet ? (heroPet.file || defaultPetPhoto(heroPet.especie)) : DEFAULT_PHOTOS.perro);
 
-  // --- Próximas citas / recordatorios ---
   const citas = misCitas();
   const upcoming = $('#patientUpcomingList');
   if (!citas.length) {
@@ -44,7 +32,6 @@ function renderPatientPage() {
   }
   $('#patientNextStat').textContent = citas[0] ? citas[0].hora : '—';
 
-  // --- Mis mascotas ---
   const petsGrid = $('#patientPetsList');
   if (!pets.length) {
     petsGrid.innerHTML = `<p class="crm-preview-value">Todavía no tenés mascotas registradas. Reservá tu primera cita y la ficha se crea sola.</p>`;
@@ -61,14 +48,12 @@ function renderPatientPage() {
   }
   $('#patientPetCount').textContent = pets.length;
 
-  // Cada tarjeta de mascota abre su propio modal con la ficha completa
   $$('.pet-detail-btn', petsGrid).forEach(btn => {
     btn.addEventListener('click', () => openPetDetail(btn.dataset.id));
   });
 
-  // --- Historial de citas (junta el historial de TODAS las mascotas) ---
   const allHistory = pets.flatMap(pet => (pet.historial || []).map(h => ({ ...h, mascota: pet.nombre })));
-  allHistory.sort((a, b) => b.fecha.localeCompare(a.fecha)); // más reciente primero
+  allHistory.sort((a, b) => b.fecha.localeCompare(a.fecha));
   $('#patientVisitCount').textContent = allHistory.length;
 
   const historyEl = $('#patientHistoryList');
@@ -88,8 +73,6 @@ function renderPatientPage() {
   }
 }
 
-// Dibuja una lista chiquita tipo "Antirrábica — 15 Ene 2026" (se usa para
-// vacunas y desparasitaciones, que tienen la misma pinta: dos datos y una fecha).
 function renderMiniList(containerId, items, campoPrincipal, campoFecha) {
   const el = $('#' + containerId);
   if (!items || !items.length) {
@@ -101,9 +84,6 @@ function renderMiniList(containerId, items, campoPrincipal, campoFecha) {
   `).join('');
 }
 
-// Abre el modal con la ficha completa de una mascota: la leemos de nuevo
-// desde el almacén (no de la lista ya dibujada) para mostrar siempre los
-// datos más recientes, por si el doctor la editó desde su propia pestaña.
 function openPetDetail(id) {
   const pet = getMascota(id);
   if (!pet) return;
@@ -119,16 +99,11 @@ function openPetDetail(id) {
   openOverlay('petOverlay');
 }
 
-// ==================== ASISTENTE DE RESERVA (5 pasos) ====================
-// 1. Servicio → 2. Doctor (según la especialidad del servicio elegido) →
-// 3. Fecha y hora → 4. Ficha de la mascota → 5. Confirmación.
 function renderBookingServiceChips() {
   const grid = $('#serviceChipGrid');
   grid.innerHTML = SERVICES.filter(s => s.id !== 'emergencias').map(s => `<button type="button" class="chip" data-service="${s.id}">${s.title}</button>`).join('');
 }
 
-// Doctor chips: se vuelven a dibujar cada vez que se entra al paso 2, porque
-// dependen de qué servicio (y por lo tanto qué especialidad) se eligió antes.
 function renderDoctorChips() {
   const grid = $('#doctorChipGrid');
   const docs = bookingState.specialtyKey ? doctorsForSpecialty(bookingState.specialtyKey) : [];
@@ -161,8 +136,6 @@ function initBooking() {
   const dateInput = $('#bookingDate');
   const petSelect = $('#bkPetSelect');
 
-  // Paso 1: elegir servicio → guarda también su especialidad, y resetea el
-  // doctor elegido antes (si volviste atrás y cambiaste de servicio).
   serviceGrid.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
@@ -175,7 +148,6 @@ function initBooking() {
     $('#toStep2').disabled = false;
   });
 
-  // Paso 2: elegir doctor (entre los que atienden esa especialidad)
   doctorGrid.addEventListener('click', (e) => {
     const chip = e.target.closest('.doctor-chip');
     if (!chip) return;
@@ -185,10 +157,6 @@ function initBooking() {
     $('#toStep3').disabled = false;
   });
 
-  // Paso 3: fecha y hora. Antes de dejar elegir un horario, se revisa contra
-  // las citas ya guardadas si ese mismo doctor ya está ocupado ese día a esa
-  // hora (ver horarioOcupado en common.js) — así dos pacientes no terminan
-  // reservando el mismo turno con el mismo doctor.
   timeGrid.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
@@ -202,8 +170,6 @@ function initBooking() {
     bookingState.time = chip.dataset.time;
     checkStep3Ready();
   });
-  // Si ya había un horario elegido y el paciente cambia de fecha, hay que
-  // revalidar: puede que ese mismo horario ya esté ocupado en la fecha nueva.
   dateInput.addEventListener('change', () => {
     bookingState.date = dateInput.value;
     if (bookingState.time && horarioOcupado(bookingState.doctorName, formatDate(bookingState.date), bookingState.time)) {
@@ -214,8 +180,6 @@ function initBooking() {
     refreshTimeChips();
     checkStep3Ready();
   });
-  // Marca visualmente (tachado + "Ocupado") los horarios que el doctor elegido
-  // ya tiene reservados en la fecha elegida.
   function refreshTimeChips() {
     $$('.chip', timeGrid).forEach(c => {
       const ocupado = !!(dateInput.value && bookingState.doctorName &&
@@ -226,10 +190,6 @@ function initBooking() {
   }
   function checkStep3Ready() { $('#toStep4').disabled = !(bookingState.date && bookingState.time); }
 
-  // Paso 4: si el select apunta a una mascota que ya tenías registrada, se
-  // autocompletan sus datos para no tener que volver a escribirlos. Se
-  // llama tanto al cambiar el select a mano como al abrir el paso (ver
-  // resetBooking), para que ya venga rellenado solo si tenés una mascota.
   function applyPetSelection() {
     const pet = getMascota(petSelect.value);
     if (pet) {
@@ -243,8 +203,6 @@ function initBooking() {
   }
   petSelect.addEventListener('change', applyPetSelection);
 
-  // Botones "Continuar": el paso 2 (doctor) hay que redibujarlo cada vez,
-  // porque depende del servicio que se haya elegido en el paso 1.
   $$('[data-next]').forEach(btn => btn.addEventListener('click', () => {
     if (btn.disabled) return;
     if (btn.dataset.next === '2') renderDoctorChips();
@@ -253,12 +211,7 @@ function initBooking() {
   }));
   $$('[data-back]').forEach(btn => btn.addEventListener('click', () => goToBookingStep(btn.dataset.back)));
 
-  // Confirmar cita: crea (o reutiliza) la mascota en el almacén compartido,
-  // agrega la cita, y listo — esto ya es visible para el doctor elegido si
-  // abre su propia pestaña.
   $('#confirmBooking').addEventListener('click', () => {
-    // Última verificación antes de guardar: por si el horario se ocupó
-    // mientras el paciente completaba los pasos 4 y 5 del asistente.
     if (horarioOcupado(bookingState.doctorName, formatDate(bookingState.date), bookingState.time)) {
       showToast('Justo se ocupó ese horario. Volvé al paso 3 y elegí otro.');
       goToBookingStep('3');
@@ -322,10 +275,7 @@ function resetBooking() {
   $$('.chip').forEach(c => c.classList.remove('selected'));
   $('#doctorChipGrid').innerHTML = '';
   $('#bookingDate').value = '';
-  $('#bookingForm').reset(); // limpia el formulario ANTES de autocompletar (si no, borraría lo que rellenamos abajo)
-  // Si ya tenés una mascota registrada, el select arranca en ELLA (no en
-  // "+ Nueva mascota") y disparamos "change" para que sus datos se
-  // autocompleten solos, sin que haya que tocar nada.
+  $('#bookingForm').reset();
   const misPets = misMascotas();
   $('#bkPetSelect').value = misPets.length ? misPets[0].id : '__new__';
   $('#bkPetSelect').dispatchEvent(new Event('change'));
@@ -335,7 +285,6 @@ function resetBooking() {
   goToBookingStep('1');
 }
 
-// ==================== ARRANQUE DE ESTA PÁGINA ====================
 document.addEventListener('DOMContentLoaded', () => {
   renderPatientPage();
   initBooking();

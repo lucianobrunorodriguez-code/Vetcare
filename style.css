@@ -1,15 +1,3 @@
-/* ============================================================================
-   style.css — usado por las 3 páginas (index.html, paciente.html, doctor.html)
-
-   Cómo está organizado:
-   - TOKENS: todos los colores/tamaños del sitio como variables CSS (--pink-600,
-     etc.) Para cambiar la paleta de colores, alcanza con tocar esta sección.
-   - Después vienen los bloques por componente (botones, navbar, tarjetas,
-     modales, etc.), cada uno con su propio título ==== ====.
-   - Al final: RESPONSIVE, con los ajustes para pantallas chicas (@media).
-   ============================================================================ */
-
-/* ==================== TOKENS (la paleta "Strawberry Matcha Latte") ==================== */
 :root{
   --bg: #F7EFE2;
   --bg-alt: #F1E6D3;
@@ -50,13 +38,7 @@
 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
-/* El atributo HTML "hidden" (usado con JS: elemento.hidden = true/false)
-   normalmente ya esconde cualquier cosa, PERO si ese mismo elemento tiene
-   una clase que le pone su propio "display" (como .btn, que usa
-   display:inline-flex), esa clase le gana al "hidden" y el elemento se
-   sigue viendo — esto fue justo lo que pasó con el botón "Dar de alta".
-   Esta regla, al ser más específica, se asegura de que "hidden" SIEMPRE
-   gane, sin importar qué otras clases tenga el elemento. */
+
 [hidden]{ display:none !important; }
 body{
   margin:0;
@@ -68,6 +50,7 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
+
 h1,h2,h3,h4{
   font-family:'Baloo 2', sans-serif;
   color:var(--ink);
@@ -89,7 +72,6 @@ svg{ width:20px; height:20px; }
   padding:0 24px;
 }
 
-/* ==================== BUTTONS ==================== */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
   padding:14px 26px;
@@ -141,7 +123,6 @@ svg{ width:20px; height:20px; }
 .chip.ocupado::after{ content:' · Ocupado'; font-size:.75em; text-decoration:none; display:inline-block; }
 .chip-sm{ padding:8px 14px; font-size:.85rem; }
 
-/* ==================== NAVBAR ==================== */
 .nav-wrap{ position:sticky; top:0; z-index:200; padding:16px 20px 0; }
 .navbar{
   max-width:1180px;
@@ -181,7 +162,6 @@ svg{ width:20px; height:20px; }
 .nav-burger{ display:none; flex-direction:column; gap:4px; background:none; border:none; padding:10px; margin-left:auto; }
 .nav-burger span{ width:20px; height:2px; background:var(--green-text); border-radius:2px; }
 
-/* ==================== HERO ==================== */
 .hero{ position:relative; padding:90px 0 60px; overflow:hidden; }
 .hero-inner{
   display:grid; grid-template-columns:1.05fr .95fr; gap:50px; align-items:center;
@@ -250,13 +230,11 @@ svg{ width:20px; height:20px; }
 .tag-green{ background:var(--green-50); color:var(--green-700); }
 .tag-pink{ background:var(--pink-50); color:var(--pink-700); }
 
-/* ==================== TRUST STRIP ==================== */
 .trust-strip{ text-align:center; padding:20px 24px 60px; }
 .trust-strip p{ font-size:.8rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); font-weight:700; }
 .trust-row{ display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:14px; }
 .trust-row span{ font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--ink-faint); opacity:.6; font-size:1.05rem; }
 
-/* ==================== SECTIONS ==================== */
 .section{ padding:90px 0; }
 .section-alt{ background:var(--bg-alt); }
 .section-green{
@@ -272,7 +250,6 @@ svg{ width:20px; height:20px; }
 }
 .section-head h2{ font-size:clamp(1.7rem, 3vw, 2.3rem); }
 
-/* ==================== CARDS (general) ==================== */
 .card{
   background:var(--white);
   border-radius:var(--radius-lg);
@@ -280,7 +257,6 @@ svg{ width:20px; height:20px; }
   transition:transform .45s var(--ease), box-shadow .45s var(--ease);
 }
 
-/* ==================== STEPS ==================== */
 .steps{
   display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
   position:relative;
@@ -301,7 +277,6 @@ svg{ width:20px; height:20px; }
 .step h3{ font-size:1.15rem; }
 .step p{ font-size:.92rem; max-width:280px; margin:0 auto; }
 
-/* ==================== ROLES ==================== */
 .roles-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
 .role-card{ padding:38px; }
 .role-card h3{ font-size:1.4rem; }
@@ -315,7 +290,6 @@ svg{ width:20px; height:20px; }
 .dot-status.green{ background:var(--green-600); }
 .dot-status.pink{ background:var(--pink-600); }
 
-/* ==================== CRM DEMO ==================== */
 .crm-demo{ display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:center; }
 .crm-form-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
 .crm-form, .crm-preview{ padding:28px; }
@@ -334,7 +308,6 @@ svg{ width:20px; height:20px; }
 .crm-preview-label{ font-size:.75rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); font-weight:700; margin-bottom:4px; }
 .crm-preview-value{ font-size:.95rem; color:var(--ink); margin-bottom:16px; }
 
-/* ==================== TESTIMONIALS ==================== */
 .testimonial-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 .testimonial-card{ padding:30px; background:var(--white); }
 .testimonial-card p{ color:var(--ink); font-size:.98rem; font-style:italic; }
@@ -342,7 +315,6 @@ svg{ width:20px; height:20px; }
 .testimonial-card strong{ font-family:'Baloo 2',sans-serif; }
 .testimonial-card span{ font-size:.82rem; color:var(--ink-faint); }
 
-/* ==================== CTA FINAL ==================== */
 .cta-final{
   background:linear-gradient(135deg, var(--pink-600), var(--pink-700));
   padding:80px 0; text-align:center;
@@ -350,7 +322,6 @@ svg{ width:20px; height:20px; }
 .cta-final-inner h2{ color:#fff; font-size:clamp(1.8rem,3.4vw,2.5rem); }
 .cta-final-inner p{ color:rgba(255,255,255,.9); max-width:480px; margin:0 auto; }
 
-/* ==================== FOOTER ==================== */
 .footer{ background:var(--ink); color:#D9D2C6; padding:64px 0 0; }
 .footer-inner{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:36px; padding-bottom:44px; }
 .footer .brand{ color:#fff; }
@@ -360,8 +331,6 @@ svg{ width:20px; height:20px; }
 .footer-col a{ display:block; color:#B8AFA0; font-size:.9rem; padding:6px 0; }
 .footer-col a:hover{ color:var(--pink-100); }
 .footer-bottom{ border-top:1px solid rgba(255,255,255,.1); padding:20px 24px; text-align:center; font-size:.8rem; color:#8D8474; }
-/* Deja aire extra abajo en celular para que el botón flotante del chat
-   (que siempre está fijo abajo a la derecha) no tape este texto. */
 @media (max-width: 720px){ .footer-bottom{ padding-bottom:84px; } }
 
 .footer-social{ display:flex; gap:10px; margin-top:18px; }
@@ -377,25 +346,17 @@ svg{ width:20px; height:20px; }
 }
 .footer-contact-item svg{ width:16px; height:16px; flex-shrink:0; margin-top:2px; color:var(--pink-100); }
 
-/* ==================== SCROLL REVEAL (3D) ====================
-   Estado de "escondido": invisible, corrido hacia abajo y ligeramente
-   inclinado en 3D (rotateX). common.js (initReveal) le agrega la clase
-   .in-view cuando el elemento entra en pantalla, lo que dispara la
-   transición hacia el estado normal (abajo). "perspective" en el contenedor
-   padre es lo que hace que el rotateX se vea 3D y no un simple achicado. */
 .reveal{
   opacity:0;
   transform:translateY(46px) rotateX(10deg) scale(.96);
   transform-origin:center bottom;
   transition:opacity .9s var(--ease), transform .9s var(--ease);
-  transition-delay:var(--delay, 0s); /* --delay se define inline en el HTML para escalonar tarjetas */
-  will-change:transform, opacity;
+  transition-delay:var(--delay, 0s);  will-change:transform, opacity;
 }
 .hero-inner{ perspective:1200px; }
 .grid-services, .roles-grid, .testimonial-grid, .steps{ perspective:1200px; }
 .reveal.in-view{ opacity:1; transform:translateY(0) rotateX(0) scale(1); }
 
-/* ==================== OVERLAYS / MODALS ==================== */
 .overlay{
   position:fixed; inset:0; z-index:1000;
   background:rgba(60,54,48,.42);
@@ -460,7 +421,6 @@ svg{ width:20px; height:20px; }
 .auth-switch{ text-align:center; font-size:.88rem; margin:18px 0 0; }
 .auth-switch a{ color:var(--pink-700); font-weight:700; }
 
-/* Dashboard / booking full overlay shell */
 .dash-shell{
   width:100%; max-width:840px; max-height:88vh; overflow-y:auto;
   background:var(--white); border-radius:var(--radius-lg);
@@ -489,7 +449,6 @@ svg{ width:20px; height:20px; }
 .patient-card .grow{ flex:1; }
 .patient-card .patient-time{ font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--green-700); font-size:.95rem; }
 
-/* Booking overlay */
 .booking-steps-nav{ display:flex; gap:8px; margin-bottom:32px; flex-wrap:wrap; }
 .bstep{
   padding:8px 16px; border-radius:var(--radius-pill); background:var(--bg);
@@ -518,7 +477,6 @@ svg{ width:20px; height:20px; }
 .booking-summary p{ margin:4px 0; font-size:.9rem; }
 .booking-summary strong{ color:var(--ink); }
 
-/* ==================== CHATBOT ==================== */
 .chat-toggle{
   position:fixed; bottom:26px; right:26px; z-index:900;
   width:60px; height:60px; border-radius:50%; border:none;
@@ -574,7 +532,6 @@ svg{ width:20px; height:20px; }
 }
 .chat-input-row button:hover{ background:var(--pink-700); }
 
-/* ==================== TOAST ==================== */
 .toast{
   position:fixed; top:24px; left:50%; z-index:1200;
   transform:translate(-50%,-140%);
@@ -586,7 +543,6 @@ svg{ width:20px; height:20px; }
 }
 .toast.show{ transform:translate(-50%,0); }
 
-/* ==================== ABOUT ==================== */
 .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
 .about-photo-wrap{ position:relative; }
 .about-photo{
@@ -607,21 +563,11 @@ svg{ width:20px; height:20px; }
 }
 .about-chip svg{ width:20px; height:20px; color:var(--green-700); flex-shrink:0; background:var(--green-50); border-radius:50%; padding:4px; box-sizing:content-box; }
 
-/* ==================== FILTER CHIPS ==================== */
 .filter-chips{ display:flex; justify-content:center; gap:12px; margin-bottom:40px; flex-wrap:wrap; }
 
-/* ==================== SERVICE CARDS (real photo banner) ====================
-   home.js pone la foto real como background-image directo en el HTML
-   (style="background-image:url(...)"). El degradé oscuro de abajo
-   (::after) es solo para que el ícono blanco de la esquina se lea bien
-   encima de cualquier foto, sin importar qué tan clara u oscura sea. */
 .grid-services{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
 .service-card{ padding:0; overflow:hidden; }
 
-/* Hover simple y liviano (solo CSS, sin JS) para todas las tarjetas
-   "mostrador": se levantan un poco y agrandan la sombra al acercar el
-   mouse. Reemplaza al viejo efecto de inclinación 3D con el mouse, que
-   temblaba y a veces hacía difícil hacer clic. */
 .service-card:hover, .team-card:hover, .testimonial-card:hover, .role-card:hover, .pet-card:hover{
   transform:translateY(-6px); box-shadow:var(--shadow-md);
 }
@@ -646,7 +592,6 @@ svg{ width:20px; height:20px; }
 .service-body p{ font-size:.9rem; margin:0 0 4px; }
 .service-doctor{ font-size:.8rem; color:var(--ink-faint); font-weight:700; margin:10px 0 0; }
 
-/* ==================== TEAM ==================== */
 .team-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
 .team-card{ padding:28px 20px; text-align:center; position:relative; }
 .team-avatar{
@@ -665,13 +610,6 @@ svg{ width:20px; height:20px; }
 }
 .team-icon-badge svg{ width:16px; height:16px; }
 
-/* ==================== SCROLLY SHOWCASE (efecto tipo TikTok) ====================
-   El truco es "position: sticky": .scrolly mide 5 pantallas de alto, pero
-   .scrolly-sticky se queda pegada arriba (top:0) mientras el navegador sigue
-   scrolleando ese alto de 5 pantallas — por eso parece "congelada" en
-   pantalla. home.js (initScrolly) es quien, mientras tanto, mueve la fila de
-   fotos de adentro con translateX según cuánto se scrolleó. Ver el CSS de
-   @media max-width:759px más abajo para la versión simple de celular. */
 .scrolly{ height:calc(5 * 92vh); position:relative; }
 .scrolly-sticky{
   position:sticky; top:0; height:100vh; overflow:hidden;
@@ -704,7 +642,6 @@ svg{ width:20px; height:20px; }
 .scrolly-dot.active{ background:var(--pink-600); width:22px; border-radius:5px; }
 .scrolly-hint{ position:absolute; bottom:18px; font-size:.78rem; color:var(--ink-faint); margin:0; }
 
-/* ==================== PORTAL PAGES (paciente.html / doctor.html) ==================== */
 .portal-tag{
   font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.82rem;
   background:rgba(255,255,255,.5); color:var(--green-text); padding:8px 16px; border-radius:var(--radius-pill);
@@ -732,7 +669,6 @@ svg{ width:20px; height:20px; }
 .portal-subtitle{ font-size:1.2rem; margin:44px 0 18px; }
 .portal-subtitle:first-of-type{ margin-top:0; }
 
-/* ==================== DASH EXTRAS ==================== */
 .dash-specialty{ color:var(--ink-faint); font-weight:700; font-size:.88rem; margin:2px 0 0; }
 .patient-specialty{ color:var(--pink-700); font-weight:700; margin-top:2px; }
 .reminder-card .grow{ margin-right:10px; }
@@ -760,7 +696,6 @@ svg{ width:20px; height:20px; }
 .ficha-modal{ max-width:480px; }
 .ficha-section-title{ font-weight:800; font-family:'Baloo 2',sans-serif; font-size:.95rem; margin:0 0 12px; }
 
-/* ==================== MINI LISTS (vacunas / desparasitaciones) ==================== */
 .mini-list{ display:flex; flex-direction:column; gap:8px; margin-bottom:10px; }
 .mini-list-item{
   display:flex; justify-content:space-between; gap:10px;
@@ -775,9 +710,6 @@ svg{ width:20px; height:20px; }
 }
 .mini-add-row input:focus{ outline:none; border-color:var(--pink-600); }
 
-/* ==================== AGREGAR DIAGNÓSTICO / MEDICAMENTO (doctor) ====================
-   Mismo estilo para los dos formularios chicos de la ficha: agregar un
-   diagnóstico nuevo, o agregar un medicamento a una internación. */
 .add-diagnostico, .add-medicamento{ margin-top:16px; }
 .add-diagnostico label, .add-medicamento label{ display:block; font-size:.85rem; font-weight:700; color:var(--ink-soft); margin-bottom:14px; }
 .add-diagnostico input, .add-diagnostico textarea, .add-medicamento input, .add-medicamento select{
@@ -789,14 +721,12 @@ svg{ width:20px; height:20px; }
 .add-diagnostico input:focus, .add-diagnostico textarea:focus,
 .add-medicamento input:focus, .add-medicamento select:focus{ outline:none; border-color:var(--pink-600); }
 
-/* ==================== INTERNACIÓN (doctor de Hospitalización) ==================== */
 .internacion-section{ margin-top:12px; }
 .portal-subtitle-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin:44px 0 18px; flex-wrap:wrap; }
 .portal-subtitle-row .portal-subtitle{ margin:0; }
 .dash-subtitle-sm{ font-size:1rem; color:var(--ink-faint); margin:32px 0 14px; }
 .modal-title{ font-size:1.3rem; margin:8px 0 20px; }
 
-/* ==================== DOCTOR CHIPS (paso "elegí tu doctor" de la reserva) ==================== */
 .booking-step-hint{ color:var(--ink-faint); font-size:.9rem; margin-top:-10px; margin-bottom:20px; }
 .doctor-chip-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); }
 .doctor-chip{
@@ -810,11 +740,9 @@ svg{ width:20px; height:20px; }
 .doctor-chip-specialty{ font-size:.78rem; color:var(--ink-faint); font-weight:600; }
 .doctor-chip.selected .doctor-chip-name, .doctor-chip.selected .doctor-chip-specialty{ color:#fff; }
 
-/* ==================== TESTIMONIAL AVATAR ==================== */
 .testimonial-avatar{ width:52px; height:52px; border-radius:50%; overflow:hidden; margin-bottom:14px; }
 .testimonial-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-/* ==================== RESPONSIVE ==================== */
 @media (max-width: 980px){
   .hero-inner{ grid-template-columns:1fr; }
   .hero-visual{ height:380px; margin-top:20px; }
@@ -832,12 +760,7 @@ svg{ width:20px; height:20px; }
   .scrolly{ height:auto; }
   .scrolly-sticky{ position:static; height:auto; padding:70px 0; overflow:visible; }
   .scrolly-track{
-    /* Sin este width:100%, al estar dentro de un flex column con
-       align-items:center, la fila se agranda para entrar TODAS las fotos
-       de una y no queda nada para deslizar (se ve "trabada" en una sola
-       imagen). Con el ancho fijo al de la pantalla, el sobrante queda
-       adentro del propio track y ahí sí funciona el swipe con el dedo. */
-    width:100%;
+        width:100%;
     overflow-x:auto; scroll-snap-type:x mandatory; padding:0 24px 12px;
     -webkit-overflow-scrolling:touch;
   }
@@ -852,10 +775,7 @@ svg{ width:20px; height:20px; }
   .dash-header{ flex-wrap:wrap; gap:14px; }
   .portal-hero{ padding:100px 0 60px; }
   .portal-hero-doctor{ flex-direction:column; align-items:flex-start; gap:16px; }
-  /* En celular el menú se despliega como una sola tarjeta debajo de la
-     barra: nav-links y nav-actions van uno debajo del otro (no cada uno
-     por su lado), para que no se pisen entre sí. */
-  .navbar.nav-open .nav-menu{
+    .navbar.nav-open .nav-menu{
     display:flex; flex-direction:column; align-items:stretch;
     position:absolute; top:64px; left:0; right:0;
     background:var(--green); border-radius:24px; padding:14px;

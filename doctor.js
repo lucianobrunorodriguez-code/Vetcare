@@ -1,21 +1,6 @@
-// ============================================================================
-// doctor.js
-// Lógica exclusiva de doctor.html: el portal del equipo médico.
-// La agenda ahora sale del almacén compartido (localStorage, ver common.js):
-// junta las citas seedeadas de ejemplo CON cualquier cita nueva que un
-// paciente haya reservado con este doctor desde su propia pestaña.
-// Desde la ficha, el doctor puede editar los datos de la mascota, agregar
-// vacunas, desparasitaciones y diagnósticos nuevos — todo se guarda en el
-// mismo almacén compartido, así que el paciente también lo ve.
-// ============================================================================
-
 const doctorSession = Session.get() || { role: 'doctor', name: 'Dr. Cesar Vega', specialty: 'Medicina general' };
-// Quién es este doctor dentro de TEAM (si existe) — lo usamos para la foto
-// Y para saber si le toca ver la sección de Internación (specialtyKeys
-// incluye 'hospitalizacion').
 const me = findTeamMember(doctorSession.name);
 
-// Dibuja el saludo, la especialidad, la foto del doctor y su agenda.
 function renderDoctorPage() {
   $('#doctorGreeting').textContent = doctorSession.name;
   $('#doctorSpecialty').textContent = doctorSession.specialty || 'Medicina general';
@@ -28,9 +13,6 @@ function renderDoctorPage() {
   renderInternacionSection();
 }
 
-// Todas las citas asignadas a este doctor (seedeadas + reservadas por
-// pacientes), ordenadas por fecha y hora, juntando cada cita con la ficha
-// de la mascota correspondiente para poder mostrar su nombre/foto.
 function renderAgenda() {
   const citas = citasByDoctor(doctorSession.name).sort((a, b) => (a.fecha + a.hora).localeCompare(b.fecha + b.hora));
   $('#agendaCount').textContent = citas.length;
@@ -66,7 +48,6 @@ function renderAgenda() {
   });
 }
 
-// ==================== FICHA DEL PACIENTE (con edición) ====================
 let fichaMascotaId = null;
 let fichaCitaId = null;
 
@@ -77,9 +58,6 @@ function openFicha(mascotaId, citaId) {
   openOverlay('fichaOverlay');
 }
 
-// Vuelve a leer la mascota del almacén y redibuja TODA la ficha — se llama
-// después de cada guardado, así el doctor ve al instante lo que acaba de
-// escribir, y sigue funcionando bien si abre la misma ficha de nuevo más tarde.
 function renderFicha() {
   const pet = getMascota(fichaMascotaId);
   if (!pet) return;
@@ -93,7 +71,6 @@ function renderFicha() {
   $('#fichaMotivo').textContent = (cita && cita.motivo) || 'Sin especificar';
   $('#fichaPhotoWrap').innerHTML = avatarImg(pet.file || defaultPetPhoto(pet.especie), pet.nombre, 'pet-photo');
 
-  // Campos editables: los prellenamos con lo que ya hay guardado.
   $('#editRaza').value = pet.raza || '';
   $('#editEdad').value = pet.edad || '';
   $('#editPeso').value = pet.peso || '';
@@ -105,7 +82,6 @@ function renderFicha() {
 }
 
 function initFichaEditing() {
-  // Guardar datos básicos (raza, edad, peso, alergias)
   $('#saveDatosBtn').addEventListener('click', () => {
     updateMascota(fichaMascotaId, {
       raza: $('#editRaza').value.trim() || 'Sin especificar',
@@ -118,7 +94,6 @@ function initFichaEditing() {
     renderAgenda();
   });
 
-  // Agregar vacuna nueva
   $('#addVacunaBtn').addEventListener('click', () => {
     const nombre = $('#nuevaVacunaNombre').value.trim();
     if (!nombre) { showToast('Escribí el nombre de la vacuna.'); return; }
@@ -128,7 +103,6 @@ function initFichaEditing() {
     showToast('Vacuna agregada.');
   });
 
-  // Agregar desparasitación nueva
   $('#addDesparasitacionBtn').addEventListener('click', () => {
     const tipo = $('#nuevaDesparasitacionTipo').value.trim();
     if (!tipo) { showToast('Escribí el tipo de desparasitación.'); return; }
@@ -138,7 +112,6 @@ function initFichaEditing() {
     showToast('Desparasitación agregada.');
   });
 
-  // Agregar diagnóstico nuevo (una entrada de historial clínico)
   $('#addDiagnosticoBtn').addEventListener('click', () => {
     const servicio = $('#nuevoDiagnosticoTitulo').value.trim();
     const nota = $('#nuevoDiagnosticoNota').value.trim();
@@ -151,10 +124,6 @@ function initFichaEditing() {
   });
 }
 
-// ==================== INTERNACIÓN (solo para doctores de Hospitalización) ====================
-// Esta sección entera solo aparece si el doctor logueado tiene
-// 'hospitalizacion' entre sus specialtyKeys (ver TEAM en common.js) — para
-// el resto del equipo, ni se dibuja ni se puede abrir.
 function renderInternacionSection() {
   const section = $('#internacionSection');
   const habilitado = me && me.specialtyKeys.includes('hospitalizacion');
@@ -162,7 +131,6 @@ function renderInternacionSection() {
   if (habilitado) renderInternados();
 }
 
-// Tarjeta chica reutilizable para un paciente internado o ya dado de alta.
 function internacionCardHtml(i) {
   const pet = getMascota(i.mascotaId);
   const nombre = pet ? pet.nombre : 'Mascota';
@@ -201,7 +169,6 @@ function renderInternados() {
   });
 }
 
-// ---- Modal "Internar paciente" ----
 function renderInternarPetSelect() {
   const select = $('#internarPetSelect');
   const opciones = Object.values(allMascotas())
@@ -257,7 +224,6 @@ function initInternarModal() {
   });
 }
 
-// ---- Ficha de internación (medicamentos + alta) ----
 let internacionActualId = null;
 
 function openInternacionFicha(id) {
