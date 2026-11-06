@@ -62,13 +62,14 @@ function renderFicha() {
   const pet = getMascota(fichaMascotaId);
   if (!pet) return;
   const cita = fichaCitaId ? allCitas().find(c => c.id === fichaCitaId) : null;
+  const internacion = cita ? null : allInternaciones().find(x => x.mascotaId === fichaMascotaId && x.estado === 'Internado');
 
   $('#fichaNombre').textContent = pet.nombre;
   $('#fichaEspecieRaza').textContent = `${pet.especie} · ${pet.raza}`;
   $('#fichaDueno').textContent = (cita && cita.ownerName) || pet.ownerName || '—';
-  $('#fichaHora').textContent = cita ? `${cita.fecha} · ${cita.hora}` : '—';
-  $('#fichaEspecialidad').textContent = cita ? cita.servicio : '—';
-  $('#fichaMotivo').textContent = (cita && cita.motivo) || 'Sin especificar';
+  $('#fichaHora').textContent = cita ? `${cita.fecha} · ${cita.hora}` : internacion ? `Ingreso: ${internacion.fechaIngreso.split(',')[0]}` : '—';
+  $('#fichaEspecialidad').textContent = cita ? cita.servicio : internacion ? 'Hospitalización' : '—';
+  $('#fichaMotivo').textContent = (cita && cita.motivo) || (internacion && internacion.motivo) || 'Sin especificar';
   $('#fichaPhotoWrap').innerHTML = avatarImg(pet.file || defaultPetPhoto(pet.especie), pet.nombre, 'pet-photo');
 
   $('#editRaza').value = pet.raza || '';
@@ -92,6 +93,7 @@ function initFichaEditing() {
     showToast('Datos actualizados.');
     renderFicha();
     renderAgenda();
+    renderInternacionSection();
   });
 
   $('#addVacunaBtn').addEventListener('click', () => {
@@ -264,6 +266,13 @@ function renderInternacionFicha() {
 }
 
 function initInternacionFicha() {
+  $('#verFichaClinicaBtn').addEventListener('click', () => {
+    const i = allInternaciones().find(x => x.id === internacionActualId);
+    if (!i) return;
+    closeOverlay('internacionFichaOverlay');
+    openFicha(i.mascotaId, null);
+  });
+
   $('#addMedicamentoBtn').addEventListener('click', () => {
     const nombre = $('#nuevoMedNombre').value.trim();
     if (!nombre) { showToast('Escribí el nombre del medicamento.'); return; }

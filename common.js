@@ -201,8 +201,12 @@ function citasByDoctor(doctorName) {
   return allCitas().filter(c => normalizeDoctorName(c.doctor) === clean);
 }
 
+const HORAS_RESERVADAS_POR_OTROS = ['9:00 AM', '3:30 PM'];
+
 function horarioOcupado(doctorName, fecha, hora) {
   const clean = normalizeDoctorName(doctorName);
+  if (!clean) return false;
+  if (HORAS_RESERVADAS_POR_OTROS.includes(hora)) return true;
   return allCitas().some(c =>
     normalizeDoctorName(c.doctor) === clean && c.fecha === fecha && c.hora === hora && c.estado !== 'Cancelada'
   );
@@ -334,13 +338,15 @@ function registerAccount({ name, email, role, specialty }) {
 }
 
 function factoryResetIfNeeded() {
-  if (loadJSON('vetcareResetV1', false)) return;
-  localStorage.removeItem(STORE_KEYS.mascotas);
-  localStorage.removeItem(STORE_KEYS.citas);
-  localStorage.removeItem(STORE_KEYS.internaciones);
-  localStorage.removeItem(ACCOUNTS_KEY);
-  localStorage.removeItem(STORE_KEYS.seeded);
-  saveJSON('vetcareResetV1', true);
+  try {
+    if (loadJSON('vetcareResetV1', false)) return;
+    localStorage.removeItem(STORE_KEYS.mascotas);
+    localStorage.removeItem(STORE_KEYS.citas);
+    localStorage.removeItem(STORE_KEYS.internaciones);
+    localStorage.removeItem(ACCOUNTS_KEY);
+    localStorage.removeItem(STORE_KEYS.seeded);
+    saveJSON('vetcareResetV1', true);
+  } catch (e) {}
 }
 
 factoryResetIfNeeded();
