@@ -61,7 +61,7 @@ const TEAM = [
   { name: 'Dr. Bruno Salas', specialty: 'Diagnóstico clínico', initials: 'BS', icon: 'laboratorio', file: 'equipo/dr.bruno.jpg', specialtyKeys: ['diagnostico'] },
   { name: 'Dra. Paula Ibáñez', specialty: 'Urgencias y medicina preventiva', initials: 'PI', icon: 'emergencia', file: 'equipo/dra. paula.jpg', specialtyKeys: ['urgencias', 'prevencion'] },
   { name: 'Dra. Melissa Fuentes', specialty: 'Rayos X', initials: 'MF', icon: 'rayosx', file: 'equipo/dra.rayosx.jpg', specialtyKeys: ['rayosx'] },
-  { name: 'Dra. Carla Espinoza', specialty: 'Ecografía', initials: 'CE', icon: 'ecografia', file: 'equipo/dr.ecografias.jpg', specialtyKeys: ['ecografia'] },
+  { name: 'Dr. Carlos Espinoza', specialty: 'Ecografía', initials: 'CE', icon: 'ecografia', file: 'equipo/dr.ecografias.jpg', specialtyKeys: ['ecografia'] },
   { name: 'Dra. Daniela Cortez', specialty: 'Hospitalización', initials: 'DC', icon: 'hospitalizacion', file: 'equipo/dra.hospitalizacion.jpg', specialtyKeys: ['hospitalizacion'] }
 ];
 
